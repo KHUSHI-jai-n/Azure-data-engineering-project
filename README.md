@@ -20,14 +20,14 @@ Gold (Serving Layer) :	Ready-to-consume, aggregated data for reporting	(Azure Sy
 ## Project Workflow
 
 1. Data Ingestion (ADF):
--- Extracts data from external sources (HTTP, CSV, APIs, etc.).
--- Loads the raw files into the Bronze layer (Data Lake).
+- Extracts data from external sources (HTTP, CSV, APIs, etc.).
+- Loads the raw files into the Bronze layer (Data Lake).
 2. Data Transformation (Databricks + PySpark):
--- Reads the raw data from ADLS.
--- Performs aggregations, and transformations.
--- Writes transformed data to the Silver layer in ADLS.
+- Reads the raw data from ADLS.
+- Performs aggregations, and transformations.
+- Writes transformed data to the Silver layer in ADLS.
 3. Data Serving (Synapse Analytics):
--- The cleansed data is loaded into dedicated Synapse tables.
--- Data is ready for SQL querying or integration with Power BI.
+- The cleansed data is loaded into dedicated Synapse tables.
+- Data is ready for SQL querying or integration with Power BI.
 Data is ready for SQL querying or integration with Power BI.
 
