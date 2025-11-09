@@ -6,9 +6,9 @@ The pipeline automates the flow of raw data through a lakehouse architecture, ma
 ## Architecture
 
 The architecture follows the Medallion (Bronze–Silver–Gold) design pattern:
-Bronze (Raw Data)	: Stores ingested raw data from source systems (Azure Data Lake Gen2)
-Silver (Transformed Data) :	Cleansed and structured data for analysis	(Azure Databricks (PySpark))
-Gold (Serving Layer) :	Ready-to-consume, aggregated data for reporting	(Azure Synapse Analytics)
+- Bronze (Raw Data)	: Stores ingested raw data from source systems (Azure Data Lake Gen2)
+- Silver (Transformed Data) :	Cleansed and structured data for analysis	(Azure Databricks (PySpark))
+- Gold (Serving Layer) :	Ready-to-consume, aggregated data for reporting	(Azure Synapse Analytics)
 
 ## Services Used
 
