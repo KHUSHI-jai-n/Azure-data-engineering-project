@@ -2,7 +2,6 @@
 
 The project simulates a real-world data engineering workflow — from data ingestion to data transformation to data serving — using key Azure services.
 The pipeline automates the flow of raw data through a lakehouse architecture, making it analytics-ready for downstream reporting.
----
 
 ## Architecture
 
@@ -12,7 +11,6 @@ The architecture follows the Medallion (Bronze–Silver–Gold) design pattern:
 | **Bronze (Raw Data)** | Stores raw ingested data directly from source | **Azure Data Lake Gen2 – Bronze Container** |
 | **Silver (Transformed Data)** | Cleansed and structured data for analytics | **Azure Databricks + PySpark** |
 | **Gold (Serving Layer)** | Aggregated, analytics-ready data | **Azure Synapse Analytics** |
----
 
 ## Services Used
 
@@ -21,7 +19,6 @@ The architecture follows the Medallion (Bronze–Silver–Gold) design pattern:
 - **Azure Databricks** – For data transformation using PySpark  
 - **Azure Synapse Analytics** – For creating external tables and serving data for reporting  
 - *(Optional)* Power BI – For visualization (not implemented in this project)
----
 
 ## Workflow
 
@@ -44,4 +41,3 @@ The architecture follows the Medallion (Bronze–Silver–Gold) design pattern:
 - Defined **external tables** and **views** on top of the Silver layer using SQL scripts.  
 - Used **CETAS (CREATE EXTERNAL TABLE AS SELECT)** to export views into the **Gold container**, producing ready-to-query, structured data.
 ---
-
