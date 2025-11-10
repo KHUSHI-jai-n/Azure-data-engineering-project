@@ -6,28 +6,38 @@ The pipeline automates the flow of raw data through a lakehouse architecture, ma
 ## Architecture
 
 The architecture follows the Medallion (Bronze–Silver–Gold) design pattern:
-- Bronze (Raw Data)	: Stores ingested raw data from source systems (Azure Data Lake Gen2)
-- Silver (Transformed Data) :	Cleansed and structured data for analysis	(Azure Databricks (PySpark))
-- Gold (Serving Layer) :	Ready-to-consume, aggregated data for reporting	(Azure Synapse Analytics)
+| Layer | Purpose | Azure Component |
+|-------|----------|----------------|
+| **Bronze (Raw Data)** | Stores raw ingested data directly from source | **Azure Data Lake Gen2 – Bronze Container** |
+| **Silver (Transformed Data)** | Cleansed and structured data for analytics | **Azure Databricks + PySpark** |
+| **Gold (Serving Layer)** | Aggregated, analytics-ready data | **Azure Synapse Analytics** |
 
 ## Services Used
 
-1. Azure Data Factory (ADF) – for orchestrating and automating data pipelines.
-2. Azure Data Lake Storage Gen2 (ADLS) – for storing raw and transformed data.
-3. Azure Databricks – for data transformation using PySpark.
-4. Azure Synapse Analytics – for serving the transformed data and enabling SQL-based analytics.
+- **Azure Data Factory (ADF)** – For pipeline orchestration and data movement  
+- **Azure Data Lake Storage Gen2 (ADLS)** – For storing data in bronze, silver, and gold containers  
+- **Azure Databricks** – For data transformation using PySpark  
+- **Azure Synapse Analytics** – For creating external tables and serving data for reporting  
+- *(Optional)* Power BI – For visualization (not implemented in this project)
 
-## Project Workflow
+## Workflow
 
-1. Data Ingestion (ADF):
-- Extracts data from external sources (HTTP, CSV, APIs, etc.).
-- Loads the raw files into the Bronze layer (Data Lake).
-2. Data Transformation (Databricks + PySpark):
-- Reads the raw data from ADLS.
-- Performs aggregations, and transformations.
-- Writes transformed data to the Silver layer in ADLS.
-3. Data Serving (Synapse Analytics):
-- The cleansed data is loaded into dedicated Synapse tables.
-- Data is ready for SQL querying or integration with Power BI.
-Data is ready for SQL querying or integration with Power BI.
+### 1️⃣ Data Ingestion – *Bronze Layer*
+- Created a **dynamic Azure Data Factory pipeline** to load multiple CSV files from **GitHub** (Kaggle dataset hosted on GitHub).  
+- Data is stored in the **Bronze container** of the Azure Data Lake.  
+- The pipeline dynamically handles file paths and naming conventions.
+
+### 2️⃣ Data Transformation – *Silver Layer*
+- Connected **Azure Databricks** to the Bronze container.  
+- Used **PySpark** for cleaning, transforming, and standardizing the dataset.  
+- Example transformations:
+  - Removing duplicates and nulls  
+  - Renaming inconsistent columns  
+  - Deriving new calculated fields  
+- Saved the cleaned data into the **Silver container** in ADLS.
+
+### 3️⃣ Data Serving – *Gold Layer*
+- Created an **Azure Synapse Analytics** workspace connected to the Data Lake.  
+- Defined **external tables** and **views** on top of the Silver layer using SQL scripts.  
+- Used **CETAS (CREATE EXTERNAL TABLE AS SELECT)** to export views into the **Gold container**, producing ready-to-query, structured data.
 
